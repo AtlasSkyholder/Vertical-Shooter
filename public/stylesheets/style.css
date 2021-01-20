@@ -6,3 +6,18 @@ body {
 a {
   color: #00B7FF;
 }
+
+.game {
+  width:800px;
+  height:600px;
+  background-color:yellow;
+}
+
+#starting-pixel {
+  position:absolute;
+  width:25px;
+  height:25px;
+  background-color:blue;
+  left:400px;
+  top:300px;
+}
