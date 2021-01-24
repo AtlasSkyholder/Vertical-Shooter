@@ -7,7 +7,8 @@ a {
   color: #00B7FF;
 }
 
-.game {
+#game {
+  position:relative;
   width:800px;
   height:600px;
   background-color:yellow;
@@ -15,9 +16,16 @@ a {
 
 #starting-pixel {
   position:absolute;
-  width:25px;
-  height:25px;
+  width:32px;
+  height:32px;
   background-color:blue;
   left:400px;
   top:300px;
+}
+
+#shot {
+  position:absolute;
+  width:6px;
+  height:20px;
+  background-color: green;
 }

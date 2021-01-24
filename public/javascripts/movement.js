@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', ()=> {
   function moveSquare(e) {
       const pixel = document.getElementById("starting-pixel");
+      const game = document.getElementById("game");
+
+      const up = window.getComputedStyle(pixel, null).top;
+
       switch(e.which) {
+          case 32:
+              console.log("Space Bar");
+              const shot = document.createElement("div");
+              shot.setAttribute("id", "shot");
+              shot.style.left = "100px";
+              shot.style.top = "100px";
+              game.appendChild(shot);
+              break
           case 38:
               console.log("Arrow Up");
-              let up = window.getComputedStyle(pixel, null).top;
               let newUp = up.replace("px", "");
               let numUp = parseInt(newUp);
               let newNumUp = numUp - 5;
