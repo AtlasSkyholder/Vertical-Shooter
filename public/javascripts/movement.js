@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=> {
+    let shotCount = 0;
 
   function moveSquare(e) {
       const pixel = document.getElementById("starting-pixel");
@@ -17,11 +18,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
       switch(e.which) {
           case 32:
+              const shotString = shotCount + "";
+
               console.log("Space Bar");
               let shotUp = numUp - 20;
               let shotLeft = numLeft + 13;
               const shot = document.createElement("div");
-              shot.setAttribute("id", "shot");
+              shot.setAttribute("class", "shot");
+              shot.setAttribute("id", shotString);
               shot.style.left = shotLeft + "px";
               shot.style.top = shotUp + "px";
               game.appendChild(shot);
@@ -29,14 +33,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
               let newShotUp = shotUp - 1;
 
               let timer = setInterval(() => {
-                document.getElementById("shot").style.top = newShotUp + "px";
+                document.getElementById(shotString).style.top = newShotUp + "px";
                 newShotUp--;
                 if (newShotUp < 0) {
                     clearInterval(timer);
                     shot.parentNode.removeChild(shot);
                   }
               }, 5);
-              
+
+              shotCount++;
+
               break
           case 38:
               console.log("Arrow Up");
