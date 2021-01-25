@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
       let newLeft = left.replace("px", "");
       let numLeft = parseInt(newLeft);
 
+      let newNumUp;
+      let newNumLeft;
+
       switch(e.which) {
           case 32:
               const shotString = shotCount + "";
@@ -46,23 +49,35 @@ document.addEventListener('DOMContentLoaded', ()=> {
               break
           case 38:
               console.log("Arrow Up");
-              let newNumUp = numUp - 5;
+              newNumUp = numUp - 5;
               pixel.style.top = "" + newNumUp + "px";
               console.log(up);
               console.log(newUp);
               break
           case 37:
               console.log("Arrow Left");
+              newNumLeft = numLeft - 5;
+              pixel.style.left = "" + newNumLeft + "px";
+              console.log(left);
+              console.log(newLeft);
               break
           case 39:
               console.log("Arrow Right");
+              newNumLeft = numLeft + 5;
+              pixel.style.left = "" + newNumLeft + "px";
+              console.log(left);
+              console.log(newLeft);
               break
           case 40:
               console.log("Arrow Down");
+              newNumUp = numUp + 5;
+              pixel.style.top = "" + newNumUp + "px";
+              console.log(up);
+              console.log(newUp);
               break
       }
   }
 
-  document.addEventListener("keyup", moveSquare);
+  document.addEventListener("keydown", moveSquare);
 
 })
