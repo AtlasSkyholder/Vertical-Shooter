@@ -6,32 +6,41 @@ document.addEventListener('DOMContentLoaded', ()=> {
   const pixel = document.getElementById("starting-pixel");
   const game = document.getElementById("game");
 
-  const up = window.getComputedStyle(pixel, null).top;
-  const left = window.getComputedStyle(pixel, null).left;
+  let numUp = parseInt(window.getComputedStyle(pixel, null).top.replace("px", ""));
+  let numLeft = parseInt(window.getComputedStyle(pixel, null).left.replace("px", ""));
 
-  let newUp = up.replace("px", "");
-  let numUp = parseInt(newUp);
-
-  let newLeft = left.replace("px", "");
-  let numLeft = parseInt(newLeft);
+  const gameWidth = parseInt(window.getComputedStyle(game,null).width.replace("px","")) - parseInt(window.getComputedStyle(pixel,null).width.replace("px",""));
+  const gameHeight = parseInt(window.getComputedStyle(game,null).height.replace("px","")) - parseInt(window.getComputedStyle(pixel,null).height.replace("px",""));
 
   function moveUp() {
     numUp = numUp - 5;
+    if (numUp <= 0) {
+      numUp = 0;
+    }
     pixel.style.top = "" + numUp + "px";
   }
 
   function moveDown() {
     numUp = numUp + 5;
+    if (numUp >= gameHeight) {
+      numUp = gameHeight;
+    }
     pixel.style.top = "" + numUp + "px";
   }
 
   function moveLeft() {
     numLeft = numLeft - 5;
+    if (numLeft <= 0) {
+      numLeft = 0;
+    }
     pixel.style.left = "" + numLeft + "px";
   }
 
   function moveRight() {
     numLeft = numLeft + 5;
+    if (numLeft >= gameWidth) {
+      numLeft = gameWidth;
+    }
     pixel.style.left = "" + numLeft + "px";
   }
 
@@ -64,21 +73,51 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   document.addEventListener("keydown", e => {
 
-    console.log(e.which);
     keys[e.which] = true;
 
-    if (keys[32] && keys[37] && keys[38]) {
+    if (keys[32] && keys[37] && keys[38]) {    // Diagonal direction while shooting
       bullet();
       moveUp();
       moveLeft();
-    }
-
-    if(keys[32] && keys[38]) {
+    } else if (keys[32] && keys[38] && keys[39]) {
       bullet();
       moveUp();
-    } else if (keys[32]) {
+      moveRight();
+    } else if (keys[32] && keys[39] && keys[40]) {
       bullet();
-    } else if (keys[37]) {
+      moveDown();
+      moveRight();
+    } else if (keys[32] && keys[37] && keys[40]) {
+      bullet();
+      moveDown();
+      moveLeft();
+    } else if (keys[37] && keys[38]) {  // Diagonal direction without shooting
+      moveUp();
+      moveLeft();
+    } else if (keys[38] && keys[39]) {
+      moveUp();
+      moveRight();
+    } else if (keys[39] && keys[40]) {
+      moveDown();
+      moveRight();
+    } else if (keys[37] && keys[40]) {
+      moveDown();
+      moveLeft();
+    } else if(keys[32] && keys[37]) {  // Vertical or Horizontal movement while shooting
+      bullet();
+      moveLeft();
+    } else if(keys[32] && keys[38]) {
+      bullet();
+      moveUp();
+    } else if(keys[32] && keys[39]) {
+      bullet();
+      moveRight();
+    } else if(keys[32] && keys[40]) {
+      bullet();
+      moveDown();
+    } else if (keys[32]) {  // Shooting
+      bullet();
+    } else if (keys[37]) {  // Vertical or Horizontal movement
       moveLeft();
     } else if (keys[38]) {
       moveUp();
@@ -87,12 +126,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
     } else if (keys[40]) {
       moveDown();
     }
-    console.log(keys);
   });
 
   document.addEventListener("keyup", e => {
     keys[e.which] = false;
-    console.log(keys);
   });
 
 
