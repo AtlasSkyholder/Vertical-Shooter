@@ -20,29 +20,19 @@ document.addEventListener('DOMContentLoaded', ()=> {
     pixel.style.top = "" + numUp + "px";
   }
 
+  function moveDown() {
+    numUp = numUp + 5;
+    pixel.style.top = "" + numUp + "px";
+  }
 
-  function moveSquare(e) {
-      
-    console.log(e.which);
+  function moveLeft() {
+    numLeft = numLeft - 5;
+    pixel.style.left = "" + numLeft + "px";
+  }
 
-      switch(e.which) {
-          case 38:
-              numUp = numUp - 5;
-              pixel.style.top = "" + numUp + "px";
-              break
-          case 37:
-              numLeft = numLeft - 5;
-              pixel.style.left = "" + numLeft + "px";
-              break
-          case 39:
-              numLeft = numLeft + 5;
-              pixel.style.left = "" + numLeft + "px";
-              break
-          case 40:
-              numUp = numUp + 5;
-              pixel.style.top = "" + numUp + "px";
-              break
-      }
+  function moveRight() {
+    numLeft = numLeft + 5;
+    pixel.style.left = "" + numLeft + "px";
   }
 
   function bullet(){
@@ -74,16 +64,28 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   document.addEventListener("keydown", e => {
 
-    console.log(e);
     console.log(e.which);
     keys[e.which] = true;
+
+    if (keys[32] && keys[37] && keys[38]) {
+      bullet();
+      moveUp();
+      moveLeft();
+    }
+
     if(keys[32] && keys[38]) {
       bullet();
       moveUp();
     } else if (keys[32]) {
       bullet();
-    } else if(keys[38]) {
+    } else if (keys[37]) {
+      moveLeft();
+    } else if (keys[38]) {
       moveUp();
+    } else if (keys[39]) {
+      moveRight();
+    } else if (keys[40]) {
+      moveDown();
     }
     console.log(keys);
   });
