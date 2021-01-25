@@ -1,83 +1,97 @@
 document.addEventListener('DOMContentLoaded', ()=> {
-    let shotCount = 0;
+  let keys = {32: false, 37:false, 38:false, 39:false, 40:false};
+
+  let shotCount = 0;
+
+  const pixel = document.getElementById("starting-pixel");
+  const game = document.getElementById("game");
+
+  const up = window.getComputedStyle(pixel, null).top;
+  const left = window.getComputedStyle(pixel, null).left;
+
+  let newUp = up.replace("px", "");
+  let numUp = parseInt(newUp);
+
+  let newLeft = left.replace("px", "");
+  let numLeft = parseInt(newLeft);
+
+  function moveUp() {
+    numUp = numUp - 5;
+    pixel.style.top = "" + numUp + "px";
+  }
+
 
   function moveSquare(e) {
-      const pixel = document.getElementById("starting-pixel");
-      const game = document.getElementById("game");
-
-      const up = window.getComputedStyle(pixel, null).top;
-      const left = window.getComputedStyle(pixel, null).left;
       
-      console.log(up,left);
-
-      let newUp = up.replace("px", "");
-      let numUp = parseInt(newUp);
-
-      let newLeft = left.replace("px", "");
-      let numLeft = parseInt(newLeft);
-
-      let newNumUp;
-      let newNumLeft;
+    console.log(e.which);
 
       switch(e.which) {
-          case 32:
-              const shotString = shotCount + "";
-
-              console.log("Space Bar");
-              let shotUp = numUp - 20;
-              let shotLeft = numLeft + 13;
-              const shot = document.createElement("div");
-              shot.setAttribute("class", "shot");
-              shot.setAttribute("id", shotString);
-              shot.style.left = shotLeft + "px";
-              shot.style.top = shotUp + "px";
-              game.appendChild(shot);
-
-              let newShotUp = shotUp - 1;
-
-              let timer = setInterval(() => {
-                document.getElementById(shotString).style.top = newShotUp + "px";
-                newShotUp--;
-                if (newShotUp < 0) {
-                    clearInterval(timer);
-                    shot.parentNode.removeChild(shot);
-                  }
-              }, 5);
-
-              shotCount++;
-
-              break
           case 38:
-              console.log("Arrow Up");
-              newNumUp = numUp - 5;
-              pixel.style.top = "" + newNumUp + "px";
-              console.log(up);
-              console.log(newUp);
+              numUp = numUp - 5;
+              pixel.style.top = "" + numUp + "px";
               break
           case 37:
-              console.log("Arrow Left");
-              newNumLeft = numLeft - 5;
-              pixel.style.left = "" + newNumLeft + "px";
-              console.log(left);
-              console.log(newLeft);
+              numLeft = numLeft - 5;
+              pixel.style.left = "" + numLeft + "px";
               break
           case 39:
-              console.log("Arrow Right");
-              newNumLeft = numLeft + 5;
-              pixel.style.left = "" + newNumLeft + "px";
-              console.log(left);
-              console.log(newLeft);
+              numLeft = numLeft + 5;
+              pixel.style.left = "" + numLeft + "px";
               break
           case 40:
-              console.log("Arrow Down");
-              newNumUp = numUp + 5;
-              pixel.style.top = "" + newNumUp + "px";
-              console.log(up);
-              console.log(newUp);
+              numUp = numUp + 5;
+              pixel.style.top = "" + numUp + "px";
               break
       }
   }
 
-  document.addEventListener("keydown", moveSquare);
+  function bullet(){
+
+    const shotString = shotCount + "";
+    let shotUp = numUp - 20;
+    let shotLeft = numLeft + 13;
+    const shot = document.createElement("div");
+    shot.setAttribute("class", "shot");
+    shot.setAttribute("id", shotString);
+    shot.style.left = shotLeft + "px";
+    shot.style.top = shotUp + "px";
+    game.appendChild(shot);
+
+    let newShotUp = shotUp - 1;
+
+    let timer = setInterval(() => {
+      document.getElementById(shotString).style.top = newShotUp + "px";
+      newShotUp--;
+      if (newShotUp < 0) {
+          clearInterval(timer);
+          shot.parentNode.removeChild(shot);
+        }
+    }, 5);
+
+    shotCount++;
+
+  }
+
+  document.addEventListener("keydown", e => {
+
+    console.log(e);
+    console.log(e.which);
+    keys[e.which] = true;
+    if(keys[32] && keys[38]) {
+      bullet();
+      moveUp();
+    } else if (keys[32]) {
+      bullet();
+    } else if(keys[38]) {
+      moveUp();
+    }
+    console.log(keys);
+  });
+
+  document.addEventListener("keyup", e => {
+    keys[e.which] = false;
+    console.log(keys);
+  });
+
 
 })
