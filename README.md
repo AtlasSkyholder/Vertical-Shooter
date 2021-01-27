@@ -9,3 +9,5 @@ movement.js - While I was successful at creating a cube as a placeholder for a f
 newMovement.js - simple exercise to try to understand and learn requestAnimationFrame method.
 
 altMovement.js - trying to merge my previous work for vertical shooter with requestAnimationFrame and a solution I came accross at StackOverFlow https://stackoverflow.com/questions/61455932/javascript-eventlistener-multiple-keydown-stops-after-one-key-triggers-keyup
+
+  -- It works and the cube moves around flawlessly without interruption, the only problem being that too many bullets are fired when keydown for spacebar, bullet firing is tied to the animation. Might have to move it out and tie it to a setInterval to reduce the number of bullets fired.
