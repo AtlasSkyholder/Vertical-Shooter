@@ -43,11 +43,13 @@ document.addEventListener('DOMContentLoaded', ()=> {
     let timer = setInterval(() => {
 
       for (let j = shotLeft; j < shotLeft + 6; j++) {
-        if (enemyBottom.includes([newShotUp, j])) {
-          clearInterval(timer);
-          shot.parentNode.removeChild(shot);
-          let dude = document.getElementsByClassName("enemy");
-          dude.parentNode.removeChild(dude);
+        for ( let k = 0; k < enemyBottom.length; k++) {
+          if (enemyBottom[k][0] === newShotUp && enemyBottom[k][1] === j) {
+            clearInterval(timer);
+            shot.parentNode.removeChild(shot);
+            let dude = document.getElementsByClassName("enemy");
+            dude.parentNode.removeChild(dude);
+          }
         }
       }
 
@@ -77,7 +79,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
     for (let i = eneX; i <= eneXBottom; i++) {
       enemyBottom.push([eneYBottom, i]);
     }
-    console.log(enemyBottom);
   }
 
 
