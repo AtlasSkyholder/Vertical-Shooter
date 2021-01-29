@@ -4,26 +4,33 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 #game {
-  position:relative;
-  width:800px;
-  height:600px;
-  background-color:yellow;
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background-color: yellow;
 }
 
 #starting-pixel {
-  position:absolute;
-  width:32px;
-  height:32px;
-  background-color:blue;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-color: blue;
 }
 
 .shot {
-  position:absolute;
-  width:6px;
-  height:20px;
+  position: absolute;
+  width: 6px;
+  height: 20px;
   background-color: green;
+}
+
+.enemy {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-color: red;
 }
