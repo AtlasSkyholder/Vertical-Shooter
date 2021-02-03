@@ -1,4 +1,14 @@
+const data = {
+  "1" : {
+    pos: [400,100],
+    hitboxSize: [32,32]
+  }
+}
+
 document.addEventListener('DOMContentLoaded', ()=> {
+
+  console.log(Object.keys(data)[0]);
+
   const game = document.getElementById("game");
   const press = ['32', '37', '38', '39', '40'];
   let shotCount = 0;  //for creating unique IDs for each bullet element
@@ -42,34 +52,50 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     let timer = setInterval(() => {
 
-      for (let j = shotLeft; j < shotLeft + 6; j++) {
-        for ( let k = 0; k < enemyBottom.length; k++) {
-          if (enemyBottom[k][0] === newShotUp && enemyBottom[k][1] === j) {
-            clearInterval(timer);
-            shot.parentNode.removeChild(shot);
-            let dude = document.getElementsByClassName("enemy");
-            dude.parentNode.removeChild(dude);
-          }
-        }
-      }
-
       document.getElementById(shotString).style.top = newShotUp + "px";
       newShotUp--;
       if (newShotUp < 0) {
           clearInterval(timer);
           shot.parentNode.removeChild(shot);
         }
+
+
+      for (let j = shotLeft; j < shotLeft + 6; j++) {
+
+        let a = 0;  //just a random variable to help break out of the loops and prevent errors.
+
+        for ( let k = 0; k < enemyBottom.length; k++) {
+          if (enemyBottom[k][0] === newShotUp && enemyBottom[k][1] === j) {
+            clearInterval(timer);
+            shot.parentNode.removeChild(shot);
+            let dude = document.getElementById(Object.keys(data)[0]);
+            dude.parentNode.removeChild(dude);
+            a = 1;
+            break;
+          }
+ 
+        }
+        if ( a === 1) {
+          break;
+        }
+      }
+
+
     }, 5);
+
+
 
     shotCount++;
 
   }
 
   function enePOS(){
-    let eneY = 100;
-    let eneX = 400;
+    let eneY = data["1"].pos[1];
+    let eneX = data["1"].pos[0];
+
     const mob = document.createElement("div");
     mob.setAttribute('class', 'enemy');
+    mob.setAttribute('id', Object.keys(data)[0]);
     mob.style.left = eneX + 'px';
     mob.style.top = eneY + 'px';
     game.appendChild(mob);
