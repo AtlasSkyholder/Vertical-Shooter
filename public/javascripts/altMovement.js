@@ -1,7 +1,13 @@
 const data = {
-  "1" : {
-    pos: [400,100],
-    hitboxSize: [32,32]
+  stageOne : {
+    "1" : {
+      pos: [400, 100],
+      hitboxSize: [32, 32]
+    },
+    "2" : {
+      pos: [200, 100],
+      hitboxSize: [32, 32]
+    }
   }
 }
 
@@ -68,8 +74,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
           if (enemyBottom[k][0] === newShotUp && enemyBottom[k][1] === j) {
             clearInterval(timer);
             shot.parentNode.removeChild(shot);
-            let dude = document.getElementById(Object.keys(data)[0]);
-            dude.parentNode.removeChild(dude);
+            let dude = document.getElementById(Object.keys(data)[0]);  //this is now the problem, I will have to have it loop by enemies, 
+            dude.parentNode.removeChild(dude);                         //when one is killed, I delete it from the object with all the enemies
             a = 1;
             break;
           }
@@ -90,21 +96,28 @@ document.addEventListener('DOMContentLoaded', ()=> {
   }
 
   function enePOS(){
-    let eneY = data["1"].pos[1];
-    let eneX = data["1"].pos[0];
 
-    const mob = document.createElement("div");
-    mob.setAttribute('class', 'enemy');
-    mob.setAttribute('id', Object.keys(data)[0]);
-    mob.style.left = eneX + 'px';
-    mob.style.top = eneY + 'px';
-    game.appendChild(mob);
+    for (const property in data.stageOne) {
+      let enemy = data.stageOne[property];
 
-    let eneYBottom = eneY + 32 - 1;
-    let eneXBottom = eneX + 32 - 1;
-    for (let i = eneX; i <= eneXBottom; i++) {
-      enemyBottom.push([eneYBottom, i]);
+      let eneY = enemy.pos[1];
+      let eneX = enemy.pos[0];
+  
+      const mob = document.createElement("div");
+      mob.setAttribute('class', 'enemy');
+      mob.setAttribute('id', enemy);
+      mob.style.left = eneX + 'px';
+      mob.style.top = eneY + 'px';
+      game.appendChild(mob);
+  
+      let eneYBottom = eneY + enemy.hitboxSize[1] - 1;
+      let eneXBottom = eneX + enemy.hitboxSize[0] - 1;
+      for (let i = eneX; i <= eneXBottom; i++) {
+        enemyBottom.push([eneYBottom, i]);
+      }
     }
+
+
   }
 
 
