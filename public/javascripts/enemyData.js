@@ -4,5 +4,4 @@ const data = {
                 hitboxSize: [32,32]
               }
             }
-
-module.exports = {data};
+export default data

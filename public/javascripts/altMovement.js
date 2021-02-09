@@ -1,4 +1,4 @@
-const data = {
+/* const data = {
   stageOne : {
     "1" : {
       pos: [400, 100],
@@ -9,7 +9,9 @@ const data = {
       hitboxSize: [32, 32]
     }
   }
-}
+} */
+
+import data from './enemyData.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
 
